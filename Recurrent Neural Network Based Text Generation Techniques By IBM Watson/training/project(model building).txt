@@ -1,0 +1,40 @@
+import keras
+from keras.models import Sequential 
+from keras.layers import Dense, LSTM, Dropout, Activation
+from keras.optimizers import RMSprop, Adam
+from keras.callbacks import ModelCheckpoint
+model= Sequential()
+model.add(LSTM(256, input_shape = (SEQ_LENGTH, 1), return_sequences = True))
+model.add(Dropout(0.2))
+model.add(LSTM(256))
+model.add(Dropout(0.2))
+model.add(Dense(VOCABULARY, activation = 'softmax'))
+model.compile(loss = 'categorical_crossentropy', optimizer = 'adam')
+filepath="text_generation.h5"
+checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
+callbacks_list = [checkpoint]   
+history = model.fit(data_X, data_Y, epochs =10 , batch_size = 128, callbacks = callbacks_list)
+filename = 'text_generation.h5'
+model.load_weights(filename)
+model.compile(loss = 'categorical_crossentropy', optimizer = 'adam')
+initial_text = ' the sun did not shine, it was too wet to play, so we sat in the house all that cold, cold wet day. '
+print(len(initial_text))
+ |'# we sat here we two and we said how we wish we had something to do.'
+initial_text = [char_to_int[c] for c in initial_text]
+int_to_char = dict((i, c) for i, c in enumerate(chars))
+GENERATED_LENGTH = 100
+test_text = initial_text
+generated_text = []
+# generate characters
+for i in range(100):
+	X = np.reshape(test_text, (1, SEQ_LENGTH, 1))
+	X  = X  / float(VOCABULARY)
+	Prediction = model.predict(X)
+	index = np.argmax(Prediction)
+	result = int_to_char[index]
+	generated_text.append(int_to_char[index])
+	sys.stdout.write(result)
+	test_text.append(index)
+	test_text = test_text[1:]
+print (\"\\nDone.\")
+print(''.join(generated_text))
