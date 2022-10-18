@@ -1,0 +1,39 @@
+import numpy as np
+from keras.utils import np_utils
+import sys
+file = open('wonderland.txt', encoding = 'utf8')
+raw_text = file.read()
+print (len(raw_text))
+raw_text = raw_text.lower()
+chars = sorted(list(set(raw_text)))
+print(chars)
+bad_chars = ['#', '*', '@', '_', '\ufeff']
+for i in range(len(bad_chars)):
+	raw_text = raw_text.replace(bad_chars[i],"")
+
+chars = sorted(list(set(raw_text)))
+print(chars)
+text_length = len(raw_text)
+char_length = len(chars)
+VOCABULARY = chars_length
+print("Text length = " + str(text_length))
+print("No. of characters = " + str(char_length))
+SEQ_LENGTH = 100
+char_to_int = dict((c, i) for i, c in enumerate(chars))
+data_X = []
+data_Y = []
+for i in range(len(raw_text) - SEQ_LENGTH):
+	X_text = raw_text[i: i + SEQ_LENGTH]
+	X = [char_to_int[char] for char in X_text]
+	data_X.append(X)
+	Y = raw_text[i + SEQ_LENGTH]
+	data_Y.append(char_to_int[Y])
+length = len(data_X)
+data_X = np.array(data_X)
+data_X = np.reshape(data_X, (data_X.shape[0], data_X.shape[1], 1))
+data_X = data_X/float(VOCABULARY)
+
+data_Y = np.array(data_Y)
+data_Y = np_utils.to_categorical(data_Y)
+print(data_X.shape)
+print(data_Y.shape)	
