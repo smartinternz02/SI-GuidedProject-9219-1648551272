@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prediction</title>
+<style>
+body
+{
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs-media-cache-ak0.pinimg.com%2Foriginals%2F0f%2Fe5%2F2d%2F0fe52d7627d5c238b174179615695e31.gif&f=1&nofb=1");
+    background-size: cover;
+   
+}
+.navbar
+{
+margin: 0px;
+padding:20px;
+background-color:white;
+opacity:0.6;
+color:black;
+font-family:'Roboto',sans-serif;
+font-style: italic;
+border-radius:20px;
+font-size:25px;
+}
+a
+{
+color:grey;
+float:right;
+text-decoration:none;
+font-style:normal;
+padding-right:20px;
+}
+a:hover{
+background-color:black;
+color:white;
+border-radius:15px;0
+font-size:30px;
+padding-left:10px;
+}
+.pred{
+text-align:center;
+background-color:black;
+width:800px;
+opacity:0.8;
+margin:auto;
+margin-top:40px;
+border-radius:20px;
+font-weight:20px;
+color:grey;
+font-size:20px;
+
+}
+.pred:hover{
+box-shadow: 15px 15px 20px 10px white;
+}
+span{
+display:inline-block;
+padding-left:10px;
+padding-tp:5px;
+}
+
+<link href="static/css/main.css'", rel="stylesheet">
+</style>
+</head>
+
+<body>
+<div class='navbar'>
+<b>NLP & RNN<b>
+<a href="/predict" >Predict</a>
+<a href="/home">Home</a>
+
+</div>
+<div class='pred'>
+<form action="/predict" method="post">
+<h1 style="font-size:25px; padding-top:35px; color:white;">Text Generation</h1>
+<span>  
+  <br><br>
+<input class="form-input" type="text" name="message" placeholder="Enter text:" size=50><br><br>
+
+<p><input type='submit' value='Click Here!'/></p>
+<b>{{prediction}}</b>
+</span>
+</form>
+
+</div>
+</body>
+</html>
